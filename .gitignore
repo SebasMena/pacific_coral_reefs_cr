@@ -60,7 +60,7 @@ vignettes/*.pdf
 *.html
 
 # reference files
-*.doc
+# *.doc
 *.docx
 
 # raw files from modis & conversions
