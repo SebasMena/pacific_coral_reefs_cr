@@ -61,7 +61,7 @@ vignettes/*.pdf
 
 # reference files
 # *.doc
-*.docx
+# *.docx
 
 # raw files from modis & conversions
 *.nc
