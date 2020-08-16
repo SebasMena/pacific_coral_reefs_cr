@@ -18,8 +18,10 @@ library(lme4)
 
 
 #Cargar bases peces y fondo limpias
-setwd("C:/Users/Tatiana Araya/Documents/Análisis/analisisculebra")
+setwd("C:/Users/Tatiana Araya/Documents/GitHub/pacific_coral_reefs_cr/data_raw/fish/Culebra")
 datarawfish<-read.csv("20-01-24_Tati_Gustavo_BASE DATOS PECES_Bahía Culebra (hasta junio19).csv")
+
+setwd("C:/Users/Tatiana Araya/Documents/GitHub/pacific_coral_reefs_cr/data_raw/sessile/Culebra")
 environment <- read.csv("20-01-24_Tati_Gustavo_Carolina Salas_BASE DATOS FONDO_Bahía Culebra (hasta julio2019).csv")
 
 head(datarawfish)
@@ -78,17 +80,17 @@ names(data) <- c("year","month","date","site","diver", "transect",
                  "biomass_g.m2","biomass_kg.ha","biomass_tn.ha",
                  "density","2.5","7.5","12.5", "17.5", "25", "35","45","55","65","75","85","95",
                  "112.5","137.5","162.5","187.5","225","275","325","700")
-
-#datafish <- reshape2:::melt.data.frame(data, c("year","month","date2","site","diver", "transect",
- #                                              "t.area", "Profundidad","Categoría.profundidad",
-  #                                             "Código.sp.","Especie","Total","a","b",
-   #                                            "GF..Quimbayo.Roff.","IUCN","biomass",
-    #                                           "biomass_g.m2","biomass_kg.ha","biomass_tn.ha",
-     #                                          "density"), 
-      #                                 c(22:length(data)),
-       #                                variable.name="size", value.name="abd")
-#head(datafish)
-#datafish <- datafish[datafish$abd > 0,]  
+library(reshape2)
+datafish <- reshape2:::melt.data.frame(data, c("year","month","date","site","diver", "transect",
+                                               "t.area", "Profundidad","Categoría.profundidad",
+                                               "Código.sp.","Especie","Total","a","b",
+                                              "GF..Quimbayo.Roff.","IUCN","biomass",
+                                               "biomass_g.m2","biomass_kg.ha","biomass_tn.ha",
+                                               "density"), 
+                                       c(22:length(data)),
+                                       variable.name="size", value.name="abd")
+head(datafish)
+datafish <- datafish[datafish$abd > 0,]  
 
 # Arreglar frmatos de base de fondo
 str(environment)
@@ -143,9 +145,9 @@ head(db)
 
 
 #write.csv(db, "basemergedversion2.csv", row.names = F)
+#write.csv(datafish, "base peces vertical hasta julio2019.csv", row.names = F)
 
-
-library(xlsx)
+#library(xlsx)
 #write.xlsx(data, "base peces horizontal hasta julio2019.xlsx")
 #write.xlsx(environment, "base fondo hasta julio2019.xlsx")
 #write.xlsx(db, "base peces+fondo hasta julio2019.xlsx")
