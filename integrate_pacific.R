@@ -1,19 +1,17 @@
 ##
-##  Project Name:  Factores que determinan la diversidad funcional de peces herbivoros del Pacifico Tropical oriental
+##  Project Name:  Monitoring program of the coral reefs from the costarrican pacific coast
 ##
-##  Objective:     Evaluar la presion antropica, el nivel de proteccion y las condiciones ambientales como modeladores de la diversidad funcional de las comunidades de peces herbivoros del PTO
+##  Objective:     
 ##
-##  Approach:      Caracterizacion de los sitios y modelaje para evaluar del efecto de las condiciones ambientales sobre la diversidad funcional
+##  Approach:      
 ##
-##                 Correlate population dynamics with environmental variables,
-##                 human pressures and other factors to evaluate population
-##                 sensitivity and resilience to perturbations.
+##                 
 ##
-##  Authors:       Franz Smith and Andrea Arriaga
+##  Authors:       Andrea Arriaga
 ##
-##  Institutions:  Universidad de Costa Rica, Sistema de Estudios de posgrado
+##  Institutions:  Universidad de Costa Rica, CIMAR
 ##
-##  Date:          2020-03-04
+##  Date:          2020-08-15
 ##
 
 ##  Notes:         1. This file is intended to provide a guide to the basic
@@ -60,7 +58,8 @@
     library(cluster)
 
   # point to working directory        ## -- will need to adjust for local copy -- ##
-    setwd("C:/Users/karina/Documents/datos_tesis/herb_ETP/")
+# Andre
+    setwd("/media/andrea/Windows/Users/karina/Documents/pacific_coral_reefs_cr")
 
   # set font for graphical outputs
     theme_set(theme_bw(base_family = "Helvetica"))

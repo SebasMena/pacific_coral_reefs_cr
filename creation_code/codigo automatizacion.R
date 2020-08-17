@@ -19,10 +19,10 @@ library(lme4)
 
 #Cargar bases peces y fondo limpias
 setwd("C:/Users/Tatiana Araya/Documents/GitHub/pacific_coral_reefs_cr/data_raw/fish/Culebra")
-datarawfish<-read.csv("20-01-24_Tati_Gustavo_BASE DATOS PECES_Bahía Culebra (hasta junio19).csv")
+datarawfish<-read.csv("20-01-24_Tati_Gustavo_BASE DATOS PECES_Bahia Culebra (hasta junio19).csv")
 
 setwd("C:/Users/Tatiana Araya/Documents/GitHub/pacific_coral_reefs_cr/data_raw/sessile/Culebra")
-environment <- read.csv("20-01-24_Tati_Gustavo_Carolina Salas_BASE DATOS FONDO_Bahía Culebra (hasta julio2019).csv")
+environment <- read.csv("20-01-24_Tati_Gustavo_Carolina Salas_BASE DATOS FONDO_Bahia Culebra (hasta julio2019).csv")
 
 head(datarawfish)
 head(environment)
@@ -33,7 +33,7 @@ colnames(environment)
 
 # Eliminar columnas poco importantes y datos de los 90's
 data <- datarawfish[,-c(1,2,3,5,7,8,10,15,16,19:23)]
-data <- data[!data$Año < 2013,]
+data <- data[!data$A?o < 2013,]
 
 # Cambiar los NA's en las abundancias por ceros
 data[is.na(data)] <- 0
@@ -41,9 +41,9 @@ data[is.na(data)] <- 0
 # Arreglar los formatos
 data$site <- as.factor(data$Sitio)
 data$diver <- as.factor(data$Buzo)
-data$year <- as.factor(data$Año)
+data$year <- as.factor(data$A?o)
 data$transect <- as.factor(data$Transecto..codSitio.Fecha.)
-data$t.area <- as.numeric(data$Área.transecto..m.)
+data$t.area <- as.numeric(data$?rea.transecto..m.)
 data$n <- as.numeric(data$Total)
 data$date <- data$Fecha
 data$date <- as.POSIXlt(strptime(as.character(data$date), "%d/%m/%Y"))
@@ -51,7 +51,7 @@ data$date <- as.POSIXct(data$date, origin = "1960/01/01", tz = "UTC")
 data$date2 <- as.Date(data$date, format = "%Y/%m/%d")
 data$month <- months.POSIXt(data$date)
 
-# Cálculo de biomasa desde cero para eliminar posibles errores al sumar
+# C?lculo de biomasa desde cero para eliminar posibles errores al sumar
 data$biomass <- ((data$a*2.5^data$b)*data$X2.5)+((data$a*7.5^data$b)*data$X7.5)+
   ((data$a*12.5^data$b)*data$X12.5)+((data$a*17.5^data$b)*data$X17.5)+((data$a*25^data$b)*data$X25)+
   ((data$a*35^data$b)*data$X35)+((data$a*45^data$b)*data$X45)+((data$a*55^data$b)*data$X55)+
@@ -75,15 +75,15 @@ colnames(data)
 
 data <- data[,c(32,38,37,30,31,33,34,1,2,3,4,5,26,27,28,29,39:43,6:25)]
 names(data) <- c("year","month","date","site","diver", "transect",
-                 "t.area", "Profundidad","Categoría.profundidad",
-                 "Código.sp.","Especie","Total","a","b","GF..Quimbayo.Roff.","IUCN","biomass",
+                 "t.area", "Profundidad","Categor?a.profundidad",
+                 "C?digo.sp.","Especie","Total","a","b","GF..Quimbayo.Roff.","IUCN","biomass",
                  "biomass_g.m2","biomass_kg.ha","biomass_tn.ha",
                  "density","2.5","7.5","12.5", "17.5", "25", "35","45","55","65","75","85","95",
                  "112.5","137.5","162.5","187.5","225","275","325","700")
 library(reshape2)
 datafish <- reshape2:::melt.data.frame(data, c("year","month","date","site","diver", "transect",
-                                               "t.area", "Profundidad","Categoría.profundidad",
-                                               "Código.sp.","Especie","Total","a","b",
+                                               "t.area", "Profundidad","Categor?a.profundidad",
+                                               "C?digo.sp.","Especie","Total","a","b",
                                               "GF..Quimbayo.Roff.","IUCN","biomass",
                                                "biomass_g.m2","biomass_kg.ha","biomass_tn.ha",
                                                "density"), 
@@ -125,8 +125,8 @@ levels(data1$site)
 levels(environment$site)
 
 levels(data1$site) <- c("Bajo Argentina", "Bajo Mero", "Cabeza de mono", "Cabeza de Mono", "Cacique", "Esmeralda",
-                        "Güiri-Güiri", "Jicaral", "Jícaro", "Matapalo", "Palmitas", "Pelonas", "Playa Blanca",
-                        "Playa Viradores", "Punta Cacique", "Güiri-Güiri", "Güiri-Güiri")
+                        "G?iri-G?iri", "Jicaral", "J?caro", "Matapalo", "Palmitas", "Pelonas", "Playa Blanca",
+                        "Playa Viradores", "Punta Cacique", "G?iri-G?iri", "G?iri-G?iri")
 
 colnames(data1)
 colnames(environment)
@@ -153,7 +153,7 @@ head(db)
 #write.xlsx(db, "base peces+fondo hasta julio2019.xlsx")
 
 
-## Gráfico de biomasa promedio para cada grupo trófico por año
+## Gr?fico de biomasa promedio para cada grupo tr?fico por a?o
 db$year2 <- as.numeric(db$year)
 
 plot.all.fish <- ggplot(data = db) + 
@@ -178,11 +178,11 @@ plot.all.fish <- ggplot(data = db) +
 plot.all.fish
 
 
-# Para análsis de Porcentajes promedio de cobertura de cada sustrato para los diferentes años
+# Para an?lsis de Porcentajes promedio de cobertura de cada sustrato para los diferentes a?os
 library(reshape2)
 colnames(environment)
 
-# acomodar las coberturas para poder hacer el gráfico
+# acomodar las coberturas para poder hacer el gr?fico
 fondo <- reshape2:::melt.data.frame(environment, c("year","site","month","date","diver.bottom",
                                             "transect"), 
                                     c(7:length(environment)),
@@ -205,7 +205,7 @@ env$substrate <- factor(env$substrate,
 env$substrate <- as.factor(env$substrate)
 levels(env$substrate)
 
-# gráfico cobertura por año por tipo de sustrato
+# gr?fico cobertura por a?o por tipo de sustrato
 env$year2 <- as.numeric(env$year)
 
 plot.env <- ggplot(data = env) + 
@@ -229,7 +229,7 @@ plot.env <- ggplot(data = env) +
   theme(axis.title.x = element_text(vjust = -1))
 plot.env
 
-## Poner ambos gráficos en una página y exportarlos como PNG
+## Poner ambos gr?ficos en una p?gina y exportarlos como PNG
 library(cowplot)
 
 dev.off()
@@ -244,7 +244,7 @@ dev.off()
 
 
 
-########## Modelos para herbívoros
+########## Modelos para herb?voros
 
 herb <- db[db$GF..Quimbayo.Roff. == "Macroalgae feeders",]
 
@@ -254,7 +254,7 @@ herb <- db[db$GF..Quimbayo.Roff. == "Macroalgae feeders",]
 par(mfcol = c(2, 2))
 par(mar = c(2, 2, 2, 2), oma=c(3, 3, 0, 0)) 
 plot(biomass_tn.ha ~ year, data = herb)
-mtext("año", 1, line = 1.9) 
+mtext("a?o", 1, line = 1.9) 
 plot(biomass_tn.ha ~ Turf, data = herb)
 mtext("turf", 1, line = 1.9)
 plot(biomass_tn.ha ~ Macroalgae, data = herb)
@@ -267,7 +267,7 @@ mtext("biomass tn/ha", 2, outer = T, line = 1)
 par(mfcol = c(2, 2))
 par(mar = c(2, 2, 2, 2), oma=c(3, 3, 0, 0)) 
 plot(log(biomass_tn.ha)~ year, data = herb)
-mtext("año", 1, line = 1.9) 
+mtext("a?o", 1, line = 1.9) 
 plot(log(biomass_tn.ha) ~ Turf, data = herb)
 mtext("turf", 1, line = 1.9)
 plot(log(biomass_tn.ha) ~ Macroalgae, data = herb)
@@ -343,14 +343,14 @@ summary(mejormodelo)
 resid.dev <- 425.43
 resid.DF <- 121 
 
-# Si esta proporción es cercana a 1, no hay sobre-dispersión
+# Si esta proporci?n es cercana a 1, no hay sobre-dispersi?n
 resid.dev / resid.DF
 
 ####  Normalida de los residuales
 qqnorm(residuals(mejormodelo), col = "gray", pch = 20, cex = 3)
 qqline(residuals(mejormodelo), col = "red2", lwd = 2.85)
 
-######################### Gráfico
+######################### Gr?fico
 #dev.off()
 #################################################################################
 
@@ -414,7 +414,7 @@ pis <- db[db$GF..Quimbayo.Roff. == "Piscivores",]
 par(mfcol = c(2, 2))
 par(mar = c(2, 2, 2, 2), oma=c(3, 3, 0, 0)) 
 plot(biomass_tn.ha ~ year, data = pis)
-mtext("año", 1, line = 1.9) 
+mtext("a?o", 1, line = 1.9) 
 plot(biomass_tn.ha ~ Turf, data = pis)
 mtext("turf", 1, line = 1.9)
 plot(biomass_tn.ha ~ Macroalgae, data = pis)
@@ -427,7 +427,7 @@ mtext("biomass tn/ha", 2, outer = T, line = 1)
 par(mfcol = c(2, 2))
 par(mar = c(2, 2, 2, 2), oma=c(3, 3, 0, 0)) 
 plot(log(biomass_tn.ha)~ year, data = pis)
-mtext("año", 1, line = 1.9) 
+mtext("a?o", 1, line = 1.9) 
 plot(log(biomass_tn.ha) ~ Turf, data = pis)
 mtext("turf", 1, line = 1.9)
 plot(log(biomass_tn.ha) ~ Macroalgae, data = pis)
@@ -501,7 +501,7 @@ summary(mejormodelo)
 resid.dev <- 908.38
 resid.DF <- 193
 
-# Si esta proporción es cercana a 1, no hay sobre-dispersión
+# Si esta proporci?n es cercana a 1, no hay sobre-dispersi?n
 resid.dev / resid.DF
 
 ####  Normalida de los residuales
@@ -509,14 +509,14 @@ qqnorm(residuals(mejormodelo), col = "gray", pch = 20, cex = 3)
 qqline(residuals(mejormodelo), col = "red2", lwd = 2.85)
 
 
-# Gráficos
-####### Gráfico Turf
+# Gr?ficos
+####### Gr?fico Turf
 modturf<- glm(log(biomass_tn.ha) ~ Turf,
                   family = "gaussian", pis)
 my.data <- data.frame(Turf = seq(min(pis$Turf), max(pis$Turf))
                                  )
 
-# predicción del modelo sobre nuestro set de datos
+# predicci?n del modelo sobre nuestro set de datos
 G <- predict(modturf, newdata = my.data, type = "link", se = T)
 
 # Extrar valores predecidos por el modelo
@@ -526,7 +526,7 @@ fit <- exp(G$fit)
 upperCI <- exp(G$fit + 1.96 * G$se.fit)
 lowerCI <- exp(G$fit - 1.96 * G$se.fit)
 
-# Gráfico turf
+# Gr?fico turf
 dev.off()
 plot(biomass_tn.ha~ Turf, data = pis, pch = 16, col = "darkgray",
      xlab = "Turf",
@@ -541,13 +541,13 @@ lines(my.data$Turf, lowerCI, lty = 2)
 
 box(bty="l")
 
-####### Gráfico CCA
+####### Gr?fico CCA
 modCCA<- glm(log(biomass_tn.ha) ~ CCA,
               family = "gaussian", pis)
 my.data <- data.frame(CCA = seq(min(pis$CCA), max(pis$CCA))
                       )
 
-# predicción del modelo sobre nuestro set de datos
+# predicci?n del modelo sobre nuestro set de datos
 G <- predict(modCCA, newdata = my.data, type = "link", se = T)
 
 # Extrar valores predecidos por el modelo
@@ -557,7 +557,7 @@ fit <- exp(G$fit)
 upperCI <- exp(G$fit + 1.96 * G$se.fit)
 lowerCI <- exp(G$fit - 1.96 * G$se.fit)
 
-# Gráfico
+# Gr?fico
 plot(biomass_tn.ha~ CCA, data = pis,
      xlab = "CCA",
      ylab = "biomasa tn/ha", axes = F)
@@ -572,12 +572,12 @@ lines(my.data$CCA, lowerCI, lty = 2)
 box(bty="l")
 
 ############
-####### Gráfico year
+####### Gr?fico year
 modyear<- glm(log(biomass_tn.ha) ~ year,
              family = "gaussian", pis)
 my.data <- data.frame(year = levels(pis$year))
 
-# predicción del modelo sobre nuestro set de datos
+# predicci?n del modelo sobre nuestro set de datos
 G <- predict(modyear, newdata = my.data, type = "link", se = T)
 
 # Extrar valores predecidos por el modelo
@@ -587,7 +587,7 @@ fit <- exp(G$fit)
 upperCI <- exp(G$fit + 1.96 * G$se.fit)
 lowerCI <- exp(G$fit - 1.96 * G$se.fit)
 
-# Gráfico
+# Gr?fico
 plot.year.pis <- plot(biomass_tn.ha~ year, data = pis, pch = 16, col = "gray",
      xlab = "year",
      ylab = "biomasa tn/ha", axes = T) +
@@ -697,6 +697,6 @@ png(paste(Sys.Date(),"_","pis.model.png", sep=""),
     width = 15, height = 5, units = "in", res = 300)
 
 cowplot::plot_grid(pis.CCA.plot,pis.turf.plot,pis.year.plot, scale = 0.95,
-                   labels = c("CCA", "Turf", "Año"), ncol = 2, nrow = 2)
+                   labels = c("CCA", "Turf", "A?o"), ncol = 2, nrow = 2)
 
 dev.off()
