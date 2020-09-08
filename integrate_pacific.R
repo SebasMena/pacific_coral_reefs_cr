@@ -167,6 +167,4 @@
   # remove paths
     # rm(creation_locale)
 
-  #
-
   
